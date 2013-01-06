@@ -20,7 +20,7 @@ class MaximalIncreasingSequence
         int startIndex = 0;
         for (int i = 1; i < arrayLength; i++)
         {
-            if (array[i] == array[i - 1] + 1)
+            if (array[i] > array[i - 1])
             {
                 counter++;
                 if (counter > maxCounter)
