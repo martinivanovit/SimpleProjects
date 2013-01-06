@@ -1,0 +1,42 @@
+using System;
+
+class MaxSequenceSum
+{
+    static void Main()
+    {
+        Console.Write("Enter array length: ");
+        int arrayLength = int.Parse(Console.ReadLine());
+        int[] array = new int[arrayLength];
+        for (int i = 0; i < arrayLength; i++)
+        {
+            Console.Write("Element[{0}] = ", i);
+            array[i] = int.Parse(Console.ReadLine());
+        }
+
+
+        int index = 0;
+        int maxIndex = 0;
+        int maxSum = 0;
+        for (int div = 0; div < arrayLength; div++)
+        {
+            int sum = 0;
+            for (int i = div; i < arrayLength; i++)
+            {
+                sum += array[i];
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                    index = div;
+                    maxIndex = i;
+                }
+            }
+        }
+
+        for (int i = index; i <= maxIndex; i++)
+        {
+            Console.Write(array[i] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+
