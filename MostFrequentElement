@@ -32,7 +32,7 @@ class MostFrequentElement
             }
         }
 
-        if (mostFrequent > 0 && maxCounter > 1)
+        if (maxCounter > 1)
         {
             Console.WriteLine("Most frequent number = {0}", mostFrequent);
             Console.WriteLine("Count = {0} times", maxCounter);   
