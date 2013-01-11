@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+
+class SubsetSum
+{
+    static void Main()
+    {
+        Console.Write("Enter wanted sum: ");
+        int wantedSum = int.Parse(Console.ReadLine());
+        Console.Write("Enter array length: ");
+        int arrayLength = int.Parse(Console.ReadLine());
+        int[] array = new int[arrayLength];
+
+        //Fill the array
+        for (int i = 0; i < arrayLength; i++)
+        {
+            Console.Write("Element[{0}] = ", i);
+            array[i] = int.Parse(Console.ReadLine());
+        }
+
+        //declare List(dynamic array) of Lists in which we are going to keep our wanted subsets
+        List<List<int>> Subsets = new List<List<int>>();
+
+        int maxSubset = (int)Math.Pow(2, arrayLength) - 1;
+        for (int i = 1; i <= maxSubset; i++)
+        {
+            int lookingSum = 0;
+            List<int> currentSubset = new List<int>(); //List for keeping the current subset
+            currentSubset.Clear();
+            for (int j = 0; j <= arrayLength; j++)
+            {
+                int mask = 1 << j;
+                int nAndMask = mask & i;
+                if (nAndMask > 0)
+                {
+                    lookingSum += array[j];
+                    currentSubset.Add(array[j]);
+                }
+            }
+            if (lookingSum == wantedSum)
+            {
+                Subsets.Add(currentSubset);
+            }
+        }
+
+        //Print the Lists with foreach loop
+        Console.WriteLine("The subsets with sum {0} are the following:", wantedSum);
+        foreach (var list in Subsets)
+        {
+            foreach (var number in list)
+            {
+                Console.Write(number + " ");
+            }
+            Console.WriteLine();
+        }
+
+
+        //Another way to print the result
+        /*for (int i = 0; i < Subsets.Count; i++)
+        {
+            foreach (var number in Subsets[i])
+            {
+                Console.Write(number + " ");
+            }
+            Console.WriteLine();
+        }
+        */
+
+    }
+}
+
