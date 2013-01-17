@@ -9,35 +9,19 @@ class SortByLength
 
         string[] strings = new string[size];
         int[] lengths = new int[size];
-        string[] newStrings = new string[size];
-        bool[] visited = new bool[size];
 
         for (int i = 0; i < size; i++)
         {
             strings[i] = Console.ReadLine();
             lengths[i] = strings[i].Length;
-            
         }
-
-        Array.Sort(lengths);
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                if (lengths[i] == strings[j].Length && visited[j] == false)
-                {
-                    visited[j] = true;
-                    newStrings[i] = strings[j];
-                    break;
-                }
-            }
-        }
+        
+        Array.Sort(lengths, strings);
 
         for (int i = 0; i < size; i++)
         {
-            Console.Write(newStrings[i] + " ");
+            Console.Write(strings[i] + " ");
         }
         Console.WriteLine();
     }
 }
-
