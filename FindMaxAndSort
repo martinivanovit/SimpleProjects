@@ -1,0 +1,75 @@
+using System;
+
+class FindMaxAndSort
+{
+    static void Main()
+    {
+        Console.Write("Enter array size: ");
+        int size = int.Parse(Console.ReadLine());
+        //int[] array = {1, 234, 234, 7, 7, 7, 2, 5, 4 ,0 , 6, 23, 23, 5};
+        int[] array = new int[size];
+        
+        FillArray(array, size);
+        Sort(array, array.Length);
+
+        Console.WriteLine("Ascending:");
+        PrintArray(array);
+        
+        //print reversed array
+        Array.Reverse(array);
+        Console.WriteLine("Descending:");
+        PrintArray(array);
+        
+
+    }
+
+    static void FillArray(int[] array, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            Console.Write("Element[{0}] = ", i);
+            array[i] = int.Parse(Console.ReadLine());
+        }
+    }
+
+    static void Sort(int[] arr, int length)
+    {
+        length--;
+        if (length < 1)
+        {
+            return;
+        }
+        int maxIndex = FindMaxElement(arr, length);
+       
+        int temp = arr[maxIndex];
+        arr[maxIndex] = arr[length];
+        arr[length] = temp;
+        
+        Sort(arr, length);
+    }
+
+    static int FindMaxElement(int[] arr, int length)
+    {
+        int maxElement = int.MinValue;
+        int maxIndex = 0;
+        for (int i = 0; i <= length; i++)
+        {
+            if (arr[i] > maxElement)
+            {
+                maxElement = arr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    static void PrintArray(int[] array)
+    {
+        foreach (var number in array)
+        {
+            Console.Write(number + " ");
+        }
+        Console.WriteLine();
+    }
+}
+
