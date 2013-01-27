@@ -8,7 +8,7 @@ class PrintMatrix
         int[,] matrix = new int[size, size];
         int maxCount = size *  size;
         
-        string direction = "bottom";
+        string part = "bottom";
         int counter = 0;
 
         int col = 0;
@@ -17,7 +17,7 @@ class PrintMatrix
         int startTopCol = 1;
         while (counter < maxCount)
         {
-            if (direction == "bottom")
+            if (part == "bottom")
             {
                 counter++;
                 matrix[row, col] = counter;
@@ -34,11 +34,11 @@ class PrintMatrix
                     startRow = 0;
                     row = 0;
                     col = 1;
-                    direction = "top";
+                    part = "top";
                 }
             }
 
-            if (direction == "top")
+            if (part == "top")
             {
                 counter++;
                 matrix[row, col] = counter;
