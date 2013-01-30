@@ -1,0 +1,113 @@
+using System;
+using System.IO;
+using System.Text;
+
+class SortRepeatedWords
+{
+    static void Main()
+    {
+        StreamReader reader = new StreamReader("..\\..\\Text files\\test.txt");
+        StreamReader reader2 = new StreamReader("..\\..\\Text files\\words.txt");
+        StreamWriter writer = new StreamWriter("..\\..\\Text files\\result.txt");
+
+        try
+        {
+            using (reader)
+            {
+                using (reader2)
+                {
+                    using (writer)
+                    {
+                        string[] test = reader.ReadToEnd().Split(' ');
+
+                        string[] words = reader2.ReadToEnd().Split(' ');
+                        int[] counters = new int[words.Length];
+
+                        CountWords(test, words, counters);
+
+                        Array.Sort(counters, words);
+                        Array.Reverse(counters);
+
+                        WriteResultToFile(writer, words, counters);
+                    }
+                }
+            }
+        }
+        catch (OverflowException oe)
+        {
+            Console.WriteLine("Too large number!");
+            Console.WriteLine(oe.Message); 
+        }
+        catch (IndexOutOfRangeException ioore)
+        {
+            Console.WriteLine("Array index outside the boundaries!");
+            Console.WriteLine("Probably the array at {0}", ioore.StackTrace.Substring(ioore.StackTrace.IndexOf("line")));
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found!");
+        }
+        catch (DirectoryNotFoundException)
+        {
+            Console.WriteLine("Cannot find directory!");
+        }
+        catch (DriveNotFoundException)
+        {
+            Console.WriteLine("Cannot find the drive!");
+        }
+        catch (AccessViolationException)
+        {
+            Console.WriteLine("Access denied. You cannot use this file!");
+        }
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Wrong path form!");
+        }
+        catch (IOException io)
+        {
+            Console.WriteLine("Uncategorizied error!");
+            throw io;
+        }
+    }
+
+    private static void CountWords(string[] test, string[] words, int[] counters)
+    {
+        for (int j = 0; j < words.Length; j++)
+        {
+            for (int i = 0; i < test.Length; i++)
+            {
+                bool isEqual = CheckIfEqual(test, words, j, i);
+                if (isEqual)
+                {
+                    counters[j]++;
+                }
+            }
+        }
+    }
+
+    private static void WriteResultToFile(StreamWriter writer, string[] words, int[] counters)
+    {
+        StringBuilder outputLine = new StringBuilder();
+        for (int i = 0; i < counters.Length; i++)
+        {
+            outputLine.Append(words[counters.Length - i - 1]);
+            outputLine.Append(" = ");
+            outputLine.Append(counters[i]);
+
+            writer.WriteLine(outputLine);
+
+            outputLine.Clear();
+        }
+    }
+
+    private static bool CheckIfEqual(string[] test, string[] words, int j, int i)
+    {
+        bool isEqual = test[i].Equals(words[j], StringComparison.InvariantCultureIgnoreCase) || 
+                       test[i].Equals(((words[j] + '.')), StringComparison.InvariantCultureIgnoreCase) ||
+                       test[i].Equals((words[j] + ','), StringComparison.InvariantCultureIgnoreCase) ||
+                       test[i].Equals((words[j] + ';'), StringComparison.InvariantCultureIgnoreCase) ||
+                       test[i].Equals((words[j] + ';'), StringComparison.InvariantCultureIgnoreCase);
+        return isEqual;
+    }
+}
+
