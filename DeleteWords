@@ -1,0 +1,43 @@
+using System;
+using System.IO;
+
+class DeleteWords
+{
+    static void Main()
+    {
+        StreamReader reader = new StreamReader("..\\..\\Text files\\text.txt");
+        StreamWriter writer = new StreamWriter("..\\..\\Text files\\output.txt");
+
+        using (reader)
+        {
+            using (writer)
+            {
+                string wholeText = reader.ReadToEnd();
+                string[] text = wholeText.Split();
+                string newText = "";
+                string prefixToDelete = "test";
+                
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (text[i].Contains(prefixToDelete))
+                    {
+                        string currentWord = text[i];
+                        if (currentWord.Substring(0, 4).Equals(prefixToDelete))
+                        {   
+                            text[i] = "";
+                        }
+                    }
+                }
+
+                newText = String.Join(" ", text);
+                char[] separators = new char[] {' '};
+                text = newText.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                newText = String.Join(" ", text);
+                
+                writer.WriteLine(newText);
+            }
+        }
+    }
+}
+
+
