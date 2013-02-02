@@ -13,6 +13,7 @@ class SassCompilerStarter
        
         string currentDirectory = Directory.GetCurrentDirectory();
         string[] filePaths = Directory.GetFiles(currentDirectory);
+        
         string sassFile = null;
         string cssFile = null;
            
