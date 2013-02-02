@@ -1,0 +1,67 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+
+class SassCompilerStarter
+{
+    static void Main()
+    {
+        StreamWriter writeBatch = new StreamWriter("SASSWatch.bat");
+        bool isFileExist = false;
+
+       
+        string currentDirectory = Directory.GetCurrentDirectory();
+        string[] filePaths = Directory.GetFiles(currentDirectory);
+        string sassFile = null;
+        string cssFile = null;
+           
+
+        foreach (var item in filePaths)
+        {
+            string fileName = Path.GetFileName(item);
+                
+            if (Path.GetExtension(fileName) == ".scss")
+            {
+                sassFile = fileName;
+                Console.WriteLine(sassFile);
+            }
+            else if (Path.GetExtension(fileName) == ".css")
+            {
+                cssFile = fileName;
+                Console.WriteLine(cssFile);
+            }
+        }
+
+        if (sassFile != null && cssFile != null)
+        {   
+            StringBuilder compilerCommand = new StringBuilder();
+            compilerCommand.Append("sass --watch ");
+            compilerCommand.Append(sassFile);
+            compilerCommand.Append(":");
+            compilerCommand.Append(cssFile);
+
+            using (writeBatch)
+            {
+                writeBatch.WriteLine(currentDirectory);
+                writeBatch.WriteLine(compilerCommand);
+            }
+            Process.Start("SASSWatch.bat");
+
+            isFileExist = true;
+        }
+        else
+        {
+            Console.WriteLine("Cannot find sass (*.scss) and css (*.css) files in this directory!");
+            Console.WriteLine("Create those file or change directory.");
+            Console.Write("Press ENTER to quit the program.");
+            int quit = Console.Read();
+        }
+
+        System.Threading.Thread.Sleep(100);
+        if (isFileExist)
+        {
+            File.Delete("SASSWatch.bat");
+        }
+    }
+}
