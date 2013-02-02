@@ -25,12 +25,10 @@ class SassCompilerStarter
             if (Path.GetExtension(fileName) == ".scss")
             {
                 sassFile = fileName;
-                Console.WriteLine(sassFile);
             }
             else if (Path.GetExtension(fileName) == ".css")
             {
                 cssFile = fileName;
-                Console.WriteLine(cssFile);
             }
         }
 
