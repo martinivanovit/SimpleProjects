@@ -1,0 +1,37 @@
+@mixin big-image(){
+  display:block;
+	width: 40%;
+	height: 60%;
+	position:absolute;
+	top: 35%;
+	left: 3.3%;
+       }
+
+body{
+	section{
+		>article{
+			height: 20%;
+			margin-right: 20px;
+			ul{
+				li{
+					list-style-type: none;
+					display: inline;
+					input{
+						display:none;
+					}
+					input:checked +.position{
+						direction:block;
+						@include big-image();
+					}
+					img {
+						width: 16%;
+						height: 30%;
+					}
+					.position{
+						display:none;
+					}
+				}
+			}
+		}
+	}
+}
