@@ -1,0 +1,324 @@
+  										/*Mixins*/
+
+.clearfixes(){
+	content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+.gradients(@color1, @color2, @color-start, @color-end){
+	background: gradient(linear, left top, left bottom, color-stop(@color-start, @color1), color-stop(@color-end, @color2));
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(@color-start, @color1), color-stop(@color-end, @color2));
+	background: -moz-linear-gradient(top, @color1 @color-start, @color2 @color-end);
+	background: -ms-linear-gradient(top, @color1 @color-start, @color2 @color-end);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' @color1', endColorstr=' @color2',GradientType=0 );
+}
+
+.background-color(@color){
+	background-color: @color;
+}
+
+.borders(@width, @style, @color, @radius, @extra-style){
+	border: @width @style @color;
+	border-radius: @radius;
+	border-style: @extra-style;
+}
+
+.fonts-weight-color(@weight, @color){
+	font-weight: @weight;
+	color: @color;
+}
+
+.fonts-shorthand(@size, @weight, @family, @color){
+	font: @size @weight @family;
+	color: @color;
+}
+
+.fonts-weight-color-style(@color, @weight, @style){
+	color: @color;
+	font-weight: @weight;
+    font-style: @style;
+}
+
+.layout(@word,@top, @right, @bottom, @left){
+	@word: @top @right @bottom @left;
+}
+
+											/*Styles*/
+
+.clearfix, body header div#header-container, body header nav, body header nav ul, body header nav ul li ul.sub-nav-list, body section, body aside
+{
+    zoom: 1;
+
+    &:after,:before{
+       
+        .clearfixes;
+    }
+	&:after{
+		clear:both
+	}
+}
+
+body, header, section, footer, article, h1, h2, h3, h4, h5, h6, input, button, label, p, fieldset, nav, ul, li, a, span, strong, em {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+div, h1, h3, h4, h5, h6, header, footer, body, section, nav, article, aside {
+    display: block;
+	}
+
+body{
+    .fonts-shorthand(14px, normal, Arial, white);
+    .gradients(#c68bf2, #9215f2, 8%, 23%);
+
+    header{
+		.layout(padding, 25px, 5px, 15px, 15px);
+
+        div#header-container{
+
+            div#logo-container{
+                float: left;
+                position: relative;
+            }
+
+            div#reg-form-container{
+                float: right;
+                position: relative;
+                right: 5%;
+                top: 50%;
+
+                div{
+                    text-align: right;
+
+                    label{
+                        width: 50px;
+                        margin: 5px;
+                    }
+
+                    input{
+                        width: 130px;
+                        padding: 2px 5px;
+                        margin: 5px;
+                        .background-color(#B35EF3);
+                        .borders(1px, solid, #603382, 10px, inset);
+                    }
+                }
+
+                button{
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding: 5px 15px;
+					.borders(1px, solid, #603382, 10px, outset);
+                    border-left-color: #B98DDC;
+                    border-left-width: 2px;
+                    border-top-color: #B98DDC;
+                    border-top-width: 2px;
+                   .background-color(#B35EF3);
+                   .fonts-weight-color(bold, white);
+
+                    &:hover{
+                        .background-color(#C98BF6);
+                        border-style: inset;
+                    }
+                }
+            }
+        }
+
+        nav
+        {
+            display: inline-block;
+            width: 75%;
+            margin: 20px 20px 20px 20px;
+            padding: 12px;
+			.borders(2px, solid, #000, 15px, inset);
+
+            ul.nav-list
+            {
+                list-style-type: none;
+            }
+
+            ul
+            {
+                li
+                {
+                    float: left;
+                    margin: 0;
+
+                    a
+                    {
+                        text-decoration: none;
+                        padding: 0 10px 0 10px;
+                        .fonts-shorthand(1.4em, normal, Arial, white);
+                    }
+
+                        a.selected
+                        {
+                            font-weight: bold;
+                        }
+
+                    ul.sub-nav-list
+                    {
+                        position: absolute;
+                        display: none;
+                        background-color: rgba(179, 94, 243, 0.9);
+                        border-radius: 5px;
+                    }
+
+                    ul
+                    {
+                        li
+                        {
+                            float: none;
+                            margin: 0 15px;
+                            padding: 10px 0;
+                            border-bottom: 1px solid black;
+                        }
+
+                            li:last-of-type
+                            {
+                                border-bottom: none;
+                            }
+
+                            li > a
+                            {
+                                font-size: 1.2em;
+                                color: #fff;
+                            }
+                    }
+                }
+
+                    li:hover > a
+                    {
+                        text-decoration: underline;
+                        color: #a8a8a8;
+                    }
+
+                        li:hover > a + ul
+                        {
+                            display: block;
+                        }
+            }
+        }
+    }
+
+    section
+    {
+        width: 75%;
+        float: left;
+        color: black;
+
+        article
+        {
+            margin: 20px;
+            padding: 20px;
+            color: white;
+            .borders(2px, solid, black, 15px, inset);
+
+            header
+            {
+                background: none;
+                padding: 5px;
+            }
+
+            footer
+            {
+                padding: 5px;
+
+                p
+                {
+                    font-size: 16px;
+                    text-align: right;
+                    font-weight: normal;
+
+                    time
+                    {
+                        font-family: Consolas, 'Lucida Console', 'DejaVu Sans Mono', monospace;
+                    }
+
+                    a
+                    {
+                        text-decoration: none;
+                        color: #BB7CF7;
+
+                        &:hover
+                        {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    aside
+    {
+        float: left;
+        width: 20%;
+        margin: 20px;
+
+        >ul
+        {
+            list-style-type: none;
+
+            >li
+            {
+                margin: 15px 0;
+                padding: 15px;
+               .borders(2px, solid, black, 5px, inset);
+
+                h2
+                {
+                    font-size: 1.1em;
+                    font-weight: bold;
+                }
+
+                p
+                {   
+                    font-size: 14px;
+					.layout(margin, 10px, 5px, 10px, 5px);
+
+                    strong
+                    {
+                        .fonts-weight-color-style(#cccccc, bold, normal);
+                    }
+
+                    em
+                    {
+                       .fonts-weight-color-style(#cccccc, normal, italic);
+                    }
+
+					 a
+					{
+						color: #aaaaaa;
+						text-decoration: none;
+					}
+                }
+
+               ul {
+                    list-style-type: none;
+					.layout(margin, 10px, 0, 10px, 0);
+
+					li {
+                        background: url(images/li-dot.png) no-repeat;
+                        background-position: 0 50%;
+                        padding-left: 25px;
+						.layout(margin, 5px, 10px, 0px, 0px);
+                    }
+                }
+			}
+		}
+	}
+
+	footer {
+        clear: both;
+		.layout(padding, 15px, 0px, 25px, 0px);
+
+		p {
+            font-size: 1.2em;
+            font-weight: bold;
+			text-align: center;
+        }
+	}
+}
